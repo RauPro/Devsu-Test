@@ -1,1 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+@use "./app/styles/variables" as *;
+@use "./app/styles/mixins" as *;
+body {
+  font-family: "prelo-book", serif;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}

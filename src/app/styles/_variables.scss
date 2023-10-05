@@ -1,0 +1,40 @@
+// Colors
+
+$primary-color: #F9DE4B;
+$secondary-color: #EAECF2;
+$background-color: #F4F6F9;
+$text-color: #333;
+$border-color: #ddd;
+
+
+// Typography
+
+$font-size-root: 16px;
+$font-size-h1: 2.5rem;
+$font-size-h2: 2rem;
+$font-size-body: 1rem;
+
+
+// Spacing
+
+$spacing-small: 0.5rem;
+$spacing-medium: 1rem;
+$spacing-large: 2rem;
+
+
+// Breakpoints
+
+$breakpoint-phone: 600px;
+$breakpoint-tablet-portrait: 900px;
+$breakpoint-tablet-landscape: 1200px;
+$breakpoint-desktop: 1500px;
+
+
+// Fonts
+
+@font-face {
+  font-family: "prelo-book";
+  src: url("../../assets/fonts/prelo-book.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
