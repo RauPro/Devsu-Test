@@ -14,8 +14,8 @@
     <td><img [src]="product.logo" alt="Logo" width="50"></td>
     <td>{{ product.name }}</td>
     <td>{{ product.description }}</td>
-    <td>{{ product.date_release }}</td>
-    <td>{{ product.date_revision }}</td>
+    <td>{{ product.date_release | date:'d/MM/yyyy' }}</td>
+    <td>{{ product.date_revision | date:'d/MM/yyyy' }}</td>
     <td>
       <!-- Aquí podría ir un componente o botón para el menú contextual de edición/eliminación -->
     </td>

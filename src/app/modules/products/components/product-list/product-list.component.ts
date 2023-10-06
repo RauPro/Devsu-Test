@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {IProduct} from "../../models/product.model";
 import {environment} from "../../../../../environments/environment";
+import {ProductService} from "../../services/product.service";
 
 @Component({
   selector: 'app-product-list',
@@ -8,7 +9,7 @@ import {environment} from "../../../../../environments/environment";
   styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent implements OnInit{
-
+  products: IProduct[] = [];
   PRODUCTS_MOCK: IProduct[] = [
     {
       id: "1",
@@ -51,8 +52,14 @@ export class ProductListComponent implements OnInit{
       date_revision: "05/05/2021"
     }
   ];
+  constructor(private productService: ProductService) {
+  }
   ngOnInit(): void {
     console.log(environment.baseUrl);
+    this.productService.getAllProducts().subscribe((products) => {
+      console.log(products);
+      this.products = products;
+    })
   }
   handleSearch(term: string) {
     // TODO: PI CALL
