@@ -1,22 +1,32 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
-import {IProduct} from "../../models/product.model";
+import { Component, Input, OnChanges } from '@angular/core';
+import { IProduct } from "../../models/product.model";
 
 @Component({
   selector: 'app-product-table',
   templateUrl: './product-table.component.html',
   styleUrls: ['./product-table.component.scss']
 })
-export class ProductTableComponent implements OnChanges{
+export class ProductTableComponent implements OnChanges {
   @Input() products: IProduct[] = [];
   itemsPerPageOptions = [5, 10, 15];
-  itemsPerPage = this.itemsPerPageOptions[0]; // Show 5 by default
-  currentPage = 1;
+  itemsPerPage = this.itemsPerPageOptions[0];
+  private _currentPage = 1;
+
+  get currentPage(): number {
+    return this._currentPage;
+  }
+
+  set currentPage(page: number) {
+    this._currentPage = page;
+    this.paginate();
+  }
+
   totalPages = 0;
   paginatedProducts: IProduct[] = [];
 
   ngOnChanges(): void {
     this.totalPages = Math.ceil(this.products.length / this.itemsPerPage);
-    this.paginatedProducts = this.products.slice(0, this.itemsPerPage);
+    this.paginate();
   }
 
   updatePagination() {
@@ -24,38 +34,38 @@ export class ProductTableComponent implements OnChanges{
     if (this.currentPage > this.totalPages) {
       this.currentPage = this.totalPages;
     }
-    this.paginate();
   }
 
   paginate() {
     const startItem = (this.currentPage - 1) * this.itemsPerPage;
-    const endItem = this.currentPage * this.itemsPerPage;
-    this.paginatedProducts = this.products.slice(startItem, endItem);
+    this.paginatedProducts = this.products.slice(startItem, startItem + this.itemsPerPage);
   }
+
   goToNextPage() {
-    if (this.currentPage < this.totalPages) {
+    if (!this.isLastPage()) {
       this.currentPage++;
-      this.paginate();
     }
   }
 
   goToPreviousPage() {
-    if (this.currentPage > 1) {
+    if (!this.isFirstPage()) {
       this.currentPage--;
-      this.paginate();
     }
   }
 
   goToFirstPage() {
     this.currentPage = 1;
-    this.paginate();
   }
 
   goToLastPage() {
     this.currentPage = this.totalPages;
-    this.paginate();
   }
 
+  isFirstPage(): boolean {
+    return this.currentPage === 1;
+  }
 
-
+  isLastPage(): boolean {
+    return this.currentPage === this.totalPages;
+  }
 }
