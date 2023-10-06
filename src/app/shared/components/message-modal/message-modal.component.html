@@ -1,0 +1,10 @@
+<div class="modal-background" (click)="onBackgroundClick()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2>{{ title }}</h2>
+    <p>{{ message }}</p>
+    <div class="modal-buttons">
+      <button class="close_btn" *ngIf="showCancel" (click)="onCancel()">Cancelar</button>
+      <button class="accept_btn" *ngIf="showConfirm" (click)="onConfirm()">Aceptar</button>
+    </div>
+  </div>
+</div>

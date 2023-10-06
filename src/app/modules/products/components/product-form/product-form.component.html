@@ -64,3 +64,11 @@
   </form>
 
 </main>
+<app-message-modal *ngIf="showModal"
+  [title]="'Operación Exitosa!'"
+  [message]="'Se creo el producto correctamente'"
+  [showCancel]="true"
+  [showConfirm]="true"
+  (cancel)="handleButton()"
+  (confirm)="handleButton()">>
+</app-message-modal>

@@ -10,7 +10,7 @@ import {ProductService} from "../../services/product.service";
 })
 export class ProductFormComponent {
   productForm: FormGroup;
-
+  showModal: boolean = false;
   constructor(private fb: FormBuilder, private productService: ProductService) {
     const currentDate = new Date();
     const nextYearDate = new Date(currentDate.setFullYear(currentDate.getFullYear() + 1));
@@ -29,20 +29,19 @@ export class ProductFormComponent {
         Validators.required,
       ]
     });
-    console.log(this.productForm.pending)
   }
 
   ngOnInit(): void {
   }
 
   submit() {
-    console.log(this.productForm.get('id'));
-    console.log(this.productForm.get('name'));
     if (this.productForm.valid) {
-      const values = this.productForm.value;
-      // Hacer algo con los valores, como enviarlos a un servicio
-    } else {
-      // Manejar el error o mostrar un mensaje
+      console.log(this.productForm.value)
+      const values = this.productForm.getRawValue();
+      this.productService.createProduct(values).subscribe((product) => {
+        this.showModal = true;
+        this.reset()
+      })
     }
   }
 
@@ -61,4 +60,8 @@ export class ProductFormComponent {
     }
     return invalidControl
   }
+  handleButton() {
+    this.showModal = false;
+  }
+
 }

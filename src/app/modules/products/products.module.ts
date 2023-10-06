@@ -9,6 +9,8 @@ import {HttpClientModule} from "@angular/common/http";
 import {ProductService} from "./services/product.service";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ProductFormComponent } from './components/product-form/product-form.component';
+import {AppModule} from "../../app.module";
+import {SharedModule} from "../../shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { ProductFormComponent } from './components/product-form/product-form.com
     CommonModule,
     RouterModule.forChild(routes),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
   providers: [ProductService],
   exports: [RouterModule]
