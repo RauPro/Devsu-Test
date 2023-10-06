@@ -16,7 +16,7 @@ export class ProductService {
   }
 
   createProduct(product: IProduct): Observable<IProduct> {
-    return this.http.post<IProduct>(this.PRODUCTS_ENDPOINT, product);
+    return this.http.post<IProduct>(this.PRODUCTS_ENDPOINT, product, {headers: {'authorId': environment.authorId}});
   }
 
   updateProduct(product: IProduct): Observable<IProduct> {
