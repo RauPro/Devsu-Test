@@ -7,18 +7,21 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 import { ProductTableComponent } from './components/product-table/product-table.component';
 import {HttpClientModule} from "@angular/common/http";
 import {ProductService} from "./services/product.service";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { ProductFormComponent } from './components/product-form/product-form.component';
 
 @NgModule({
   declarations: [
     ProductListComponent,
     SearchBarComponent,
-    ProductTableComponent
+    ProductTableComponent,
+    ProductFormComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [ProductService],
   exports: [RouterModule]

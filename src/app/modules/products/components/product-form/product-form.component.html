@@ -1,0 +1,65 @@
+<main class="main_container_form">
+  <form class="product_form mt-5" [formGroup]="productForm" (submit)="submit()">
+    <h2 class="my-3 text-center">Formulario de Registro</h2>
+    <hr>
+    <div class="d-flex justify-space-around flex-wrap mt-2">
+      <div class="input-group">
+        <label for="id">ID</label>
+        <input class="input-element" id="id" type="text" formControlName="id">
+        <div *ngIf="productForm.get('id')?.invalid && productForm.get('id')?.touched" class="error-message">
+          Este campo es requerido!
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="nombre">Nombre</label>
+        <input class="input-element" id="nombre" type="text" formControlName="name">
+        <div *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched" class="error-message">
+          Este campo es requerido!
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex justify-space-around flex-wrap">
+      <div class="input-group">
+        <label for="description">Descripción</label>
+        <input class="input-element" id="description" type="text" formControlName="description">
+        <div *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched" class="error-message">
+          Este campo es requerido!
+        </div>
+      </div>
+
+      <div class="input-group flex-wrap">
+        <label for="logo">Logo</label>
+        <input class="input-element" id="logo" type="text" formControlName="logo">
+        <div *ngIf="productForm.get('logo')?.invalid && productForm.get('logo')?.touched" class="error-message">
+          Este campo es requerido!
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex justify-space-around flex-wrap">
+      <div class="input-group">
+        <label for="date_release">Fecha Liberación</label>
+        <input class="input-element" id="date_release" type="date" formControlName="date_release">
+        <div *ngIf="productForm.get('date_release')?.invalid && productForm.get('date_release')?.touched" class="error-message">
+          Este campo es requerido!
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="date_revision">Fecha Revisión</label>
+        <input class="input-element" id="date_revision" type="date" formControlName="date_revision">
+        <div *ngIf="productForm.get('date_revision')?.invalid && productForm.get('date_revision')?.touched" class="error-message">
+          Este campo es requerido!
+        </div>
+      </div>
+    </div>
+
+    <div class="button-group d-flex justify-content-center">
+      <button class="m-4 btn-reset" type="button" (click)="reset()">Reiniciar</button>
+      <button class="m-4 btn-submit" type="submit" [disabled]="productForm.invalid">Enviar</button>
+    </div>
+  </form>
+
+</main>
