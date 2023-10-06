@@ -1,0 +1,24 @@
+<table>
+  <thead>
+  <tr>
+    <th>Logo</th>
+    <th>Nombre del producto</th>
+    <th><div>Descripción</div><i class="ri-information-fill"></i></th>
+    <th><div>Fecha de liberación</div> <i class="ri-information-fill"></i></th>
+    <th><div>Fecha de reestructuración</div> <i class="ri-information-fill"></i></th>
+    <th></th> <!-- Opcional, para el menú contextual -->
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let product of products">
+    <td><img [src]="product.logo" alt="Logo" width="50"></td>
+    <td>{{ product.name }}</td>
+    <td>{{ product.description }}</td>
+    <td>{{ product.date_release }}</td>
+    <td>{{ product.date_revision }}</td>
+    <td>
+      <!-- Aquí podría ir un componente o botón para el menú contextual de edición/eliminación -->
+    </td>
+  </tr>
+  </tbody>
+</table>

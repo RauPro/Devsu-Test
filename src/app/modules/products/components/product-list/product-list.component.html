@@ -1,0 +1,13 @@
+<main class="main_container_products">
+  <div class="container">
+    <div class="actives_container">
+      <app-search-bar (SearchTerm)="handleSearch($event)">
+      </app-search-bar>
+      <button class="add_button">Agregar</button>
+    </div>
+    <div class="table_container">
+      <app-product-table [products]="PRODUCTS_MOCK">
+      </app-product-table>
+    </div>
+  </div>
+</main>
