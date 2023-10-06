@@ -1,0 +1,29 @@
+// import variables
+@import '../../../../styles/variables';
+@import '../../../../styles/mixins';
+.main_container_products{
+  background-color: $background-color;
+  height: 87vh;
+  display: flex;
+  justify-content: center;
+  //Like bootstrap container
+  .container{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+
+  }
+}
+.actives_container{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 90px;
+  margin-bottom: 35px;
+}
+.table_container{
+  width: 100%;
+}
+.add_button {
+  @include button();
+}

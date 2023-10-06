@@ -1,7 +1,27 @@
 # BancoPichincha
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.6.
+Feature Module Architecture
+This project is based on the feature module architecture, which is a modular architecture that allows you to divide the application into modules, each of which is responsible for a specific feature. This architecture is based on the SOLID principles, which are:
 
+Single Responsibility Principle
+Open-Closed Principle
+Liskov Substitution Principle
+Interface Segregation Principle
+Dependency Inversion Principle
+The feature module architecture is based on the following principles:
+
+Each module is responsible for a specific feature.
+Each module is independent of the other modules.
+Each module can be reused in other applications.
+Each module can be tested independently.
+Each module can be developed independently.
+Each module can be deployed independently.
+Each module can be maintained independently.
+Each module can be scaled independently.
+Each module can be documented independently.
+Each module can be reused in other applications.
+Each module can be tested independently.
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.

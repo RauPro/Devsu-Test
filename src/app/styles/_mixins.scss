@@ -1,0 +1,18 @@
+@mixin button($background: $primary-color, $color: $alternative-color) {
+  border-radius: 4px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  cursor: pointer;
+  width: max-content;
+  border: 0;
+  height: 40px;
+  line-height: 24px;
+  padding: 8px 24px;
+  user-select: none;
+  background: $background;
+  color: $color;
+  font-weight: 600;
+}
