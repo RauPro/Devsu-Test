@@ -42,6 +42,9 @@ button {
   background-color: #fff;
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
+  &:disabled{
+    background-color: $background-color;
+  }
 }
 .btn-reset{
   @include button($background: $border-color, $color: $alternative-color);
@@ -58,4 +61,7 @@ button {
     color: #676767;
     cursor: no-drop;
   }
+}
+.error-message{
+  color:red;
 }
