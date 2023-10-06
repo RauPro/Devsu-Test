@@ -7,6 +7,7 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 import { ProductTableComponent } from './components/product-table/product-table.component';
 import {HttpClientModule} from "@angular/common/http";
 import {ProductService} from "./services/product.service";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import {ProductService} from "./services/product.service";
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
+    FormsModule
   ],
   providers: [ProductService],
   exports: [RouterModule]
