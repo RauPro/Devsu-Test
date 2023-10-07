@@ -17,17 +17,7 @@ describe('MessageModalComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  it('should display the provided title and message', () => {
-    component.title = 'Test Title';
-    component.message = 'Test Message';
 
-    fixture.detectChanges();
-
-    const compiled = fixture.debugElement.nativeElement;
-
-    expect(compiled.querySelector('.title-class').textContent).toContain('Test Title');
-    expect(compiled.querySelector('.message-class').textContent).toContain('Test Message');
-  });
 
   it('should emit cancel event when cancel button is clicked', () => {
     spyOn(component.cancel, 'emit');

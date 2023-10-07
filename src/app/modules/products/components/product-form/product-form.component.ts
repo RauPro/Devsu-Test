@@ -13,7 +13,7 @@ import {of, Subject} from "rxjs";
   styleUrls: ['./product-form.component.scss']
 })
 export class ProductFormComponent {
-  private isModified: boolean = false;
+  isModified: boolean = false;
   private destroy$ = new Subject<void>();
   showSuccessModal: boolean = false;
   productForm: FormGroup;
@@ -60,7 +60,7 @@ export class ProductFormComponent {
 
       request$.pipe(
         catchError(error => {
-          console.error("There was an error!", error);
+          //console.error("There was an error!", error);
           return of(null);  // handle error gracefully
         }),
         takeUntil(this.destroy$)
