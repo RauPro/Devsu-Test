@@ -4,6 +4,8 @@ import {existingIDValidator} from "../../validatiors/id-validator";
 import {ProductService} from "../../services/product.service";
 import {Router} from "@angular/router";
 import {IProduct} from "../../models/product.model";
+import {catchError, takeUntil} from "rxjs/operators";
+import {of, Subject} from "rxjs";
 
 @Component({
   selector: 'app-product-form',
@@ -11,10 +13,10 @@ import {IProduct} from "../../models/product.model";
   styleUrls: ['./product-form.component.scss']
 })
 export class ProductFormComponent {
-  productForm: FormGroup;
-  isModified: boolean = false;
+  private isModified: boolean = false;
+  private destroy$ = new Subject<void>();
   showSuccessModal: boolean = false;
-
+  productForm: FormGroup;
   constructor(private fb: FormBuilder, private productService: ProductService, private router: Router) {
     const currentDate = new Date();
     const nextYearDate = new Date(currentDate.setFullYear(currentDate.getFullYear() + 1));
@@ -41,27 +43,33 @@ export class ProductFormComponent {
       this.isModified = true;
       data.date_release = data.date_release.split('T')[0];
       data.date_revision = data.date_revision.split('T')[0];
-      console.log(data)
       this.productForm.patchValue(data);
       this.productForm.get('id')?.disable();
     }
   }
-
-  submit() {
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+  submit(): void {
     if (this.productForm.valid) {
-      console.log(this.productForm.value)
       const values = this.productForm.getRawValue();
-      if (this.isModified) {
-        this.productService.updateProduct(values).subscribe(() => {
-          this.showSuccessModal = true;
+      const request$ = this.isModified ?
+        this.productService.updateProduct(values) :
+        this.productService.createProduct(values);
 
-        });
-      } else {
-        this.productService.createProduct(values).subscribe((product) => {
-          this.showSuccessModal = true;
-          this.reset()
-        })
-      }
+      request$.pipe(
+        catchError(error => {
+          console.error("There was an error!", error);
+          return of(null);  // handle error gracefully
+        }),
+        takeUntil(this.destroy$)
+      ).subscribe(() => {
+        this.showSuccessModal = true;
+        if (!this.isModified) {
+          this.reset();
+        }
+      });
     }
   }
 
