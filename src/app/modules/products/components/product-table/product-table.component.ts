@@ -39,7 +39,6 @@ export class ProductTableComponent implements OnChanges {
   }
 
   updatePagination() {
-    console.log("UPDATE")
     this.totalPages = Math.ceil(this.products.length / this.itemsPerPage);
     if (this.currentPage > this.totalPages) {
       this.currentPage = this.totalPages;
