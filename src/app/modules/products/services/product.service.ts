@@ -12,24 +12,24 @@ export class ProductService {
   constructor(private http: HttpClient) {}
 
   getAllProducts(): Observable<IProduct[]> {
-    return this.http.get<IProduct[]>(this.PRODUCTS_ENDPOINT, {headers: {'authorId': environment.authorId}});
+    return this.http.get<IProduct[]>(this.PRODUCTS_ENDPOINT);
   }
 
   createProduct(product: IProduct): Observable<IProduct> {
-    return this.http.post<IProduct>(this.PRODUCTS_ENDPOINT, product, {headers: {'authorId': environment.authorId}});
+    return this.http.post<IProduct>(this.PRODUCTS_ENDPOINT, product);
   }
 
   updateProduct(product: IProduct): Observable<IProduct> {
-    return this.http.put<IProduct>(`${this.PRODUCTS_ENDPOINT}/`, product, {headers: {'authorId': environment.authorId}});
+    return this.http.put<IProduct>(`${this.PRODUCTS_ENDPOINT}/`, product);
   }
 
   deleteProduct(id: IProduct['id']): Observable<void> {
-    return this.http.delete<void>(`${this.PRODUCTS_ENDPOINT}`, { params: { id },headers: {'authorId': environment.authorId}});
+    return this.http.delete<void>(`${this.PRODUCTS_ENDPOINT}`, { params: { id }});
   }
 
   existProduct(id: IProduct['id']): Observable<boolean> {
     return this.http.get<boolean>(`${this.PRODUCTS_ENDPOINT}/verification`, {
-      params: { id: id.toString() }, // Make sure the id is a string
+      params: { id: id.toString() },
     });
   }
 }

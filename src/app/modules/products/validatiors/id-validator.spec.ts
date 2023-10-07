@@ -33,7 +33,7 @@ describe('existingIDValidator', () => {
 
     const validator = existingIDValidator(productService as ProductService);
     const validationObservable = validator(mockControl as any) as Observable<any>;
-    mockControl.valueChanges.next('1234');  // Simulamos un cambio de valor
+    mockControl.valueChanges.next('1234');
     validationObservable.subscribe(result => {
       expect(result).toBeNull();
       done();
