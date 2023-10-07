@@ -17,7 +17,15 @@
     <td>{{ product.date_release | date:'d/MM/yyyy' }}</td>
     <td>{{ product.date_revision | date:'d/MM/yyyy' }}</td>
     <td>
-      <!-- TODO: Aquí podría ir un componente o botón para el menú contextual de edición/eliminación -->
+      <button (click)="toggleMenu(product.id)">
+        <i class="ri-more-2-line"></i>
+      </button>
+      <div class="menu-dropdown" *ngIf="openedMenuId === product.id">
+        <ul>
+          <li (click)="editItem(product)">Editar</li>
+          <li (click)="deleteItem()">Eliminar</li>
+        </ul>
+      </div>
     </td>
   </tr>
   </tbody>
