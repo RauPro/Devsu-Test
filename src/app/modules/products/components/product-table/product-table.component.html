@@ -23,7 +23,7 @@
       <div class="menu-dropdown" *ngIf="openedMenuId === product.id">
         <ul>
           <li (click)="editItem(product)">Editar</li>
-          <li (click)="deleteItem()">Eliminar</li>
+          <li (click)="deleteItem(product)">Eliminar</li>
         </ul>
       </div>
     </td>
@@ -44,4 +44,11 @@
   </select>
 
 </div>
-
+<app-message-modal *ngIf="showDeleteModal"
+                   [title]="'Confirmar eliminación'"
+                   [message]=deleteMessage
+                   [showCancel]="false"
+                   [showConfirm]="true"
+                   (cancel)="handleCancelButton()"
+                   (confirm)="handleDeleteButton()">>
+</app-message-modal>
