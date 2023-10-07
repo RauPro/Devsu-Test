@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { IProduct } from "../../models/product.model";
 import {Router} from "@angular/router";
+import {ProductService} from "../../services/product.service";
 
 @Component({
   selector: 'app-product-table',
@@ -12,11 +13,15 @@ export class ProductTableComponent implements OnChanges {
   itemsPerPageOptions = [5, 10, 15];
   itemsPerPage = this.itemsPerPageOptions[0];
   openedMenuId: string | null = null;
+  currentSelectedProduct: IProduct | null = null;
   private _currentPage = 1;
-  constructor(private router: Router) {
+  constructor(private router: Router, private productService: ProductService) {
   }
   get currentPage(): number {
     return this._currentPage;
+  }
+  get deleteMessage(): string {
+    return `¿Estas seguro deseas eliminar el producto ${this.currentSelectedProduct?.name}?`;
   }
 
   set currentPage(page: number) {
@@ -26,6 +31,7 @@ export class ProductTableComponent implements OnChanges {
 
   totalPages = 0;
   paginatedProducts: IProduct[] = [];
+  showDeleteModal: boolean = false;
 
   ngOnChanges(): void {
     this.totalPages = Math.ceil(this.products.length / this.itemsPerPage);
@@ -33,7 +39,6 @@ export class ProductTableComponent implements OnChanges {
   }
 
   updatePagination() {
-    console.log("UPDATE")
     this.totalPages = Math.ceil(this.products.length / this.itemsPerPage);
     if (this.currentPage > this.totalPages) {
       this.currentPage = this.totalPages;
@@ -81,9 +86,23 @@ export class ProductTableComponent implements OnChanges {
     this.router.navigate(['/form-product'], { state: { data: product } });
   }
 
-  deleteItem() {
-    // Lógica de eliminación
-    //this.isMenuOpen = false;
+  deleteItem(product: IProduct) {
+    this.currentSelectedProduct = product;
+    this.showDeleteModal = true;
+    this.openedMenuId = null;
   }
 
+  handleCancelButton() {
+    this.showDeleteModal = false;
+  }
+
+  handleDeleteButton() {
+    if (this.currentSelectedProduct?.id){
+      this.productService.deleteProduct(this.currentSelectedProduct.id).subscribe(() => {
+        this.products = this.products.filter(product => product.id !== this.currentSelectedProduct?.id);
+        this.updatePagination();
+        this.showDeleteModal = false;
+      })
+    }
+  }
 }

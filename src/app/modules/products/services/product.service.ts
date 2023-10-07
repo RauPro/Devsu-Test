@@ -24,12 +24,12 @@ export class ProductService {
   }
 
   deleteProduct(id: IProduct['id']): Observable<void> {
-    return this.http.delete<void>(`${this.PRODUCTS_ENDPOINT}/${id}`);
+    return this.http.delete<void>(`${this.PRODUCTS_ENDPOINT}`, { params: { id },headers: {'authorId': environment.authorId}});
   }
 
   existProduct(id: IProduct['id']): Observable<boolean> {
     return this.http.get<boolean>(`${this.PRODUCTS_ENDPOINT}/verification`, {
-      params: { id: id.toString() }, // Asegurarse que id sea una cadena
+      params: { id: id.toString() }, // Make sure the id is a string
     });
   }
 }
