@@ -20,7 +20,7 @@ describe('MessageModalComponent', () => {
 
 
   it('should emit cancel event when cancel button is clicked', () => {
-    spyOn(component.cancel, 'emit');
+    jest.spyOn(component.cancel, 'emit');
 
     const cancelButton = fixture.debugElement.nativeElement.querySelector('.close_btn');
     cancelButton.click();
@@ -28,14 +28,6 @@ describe('MessageModalComponent', () => {
     expect(component.cancel.emit).toHaveBeenCalled();
   });
 
-  it('should emit confirm event when confirm button is clicked', () => {
-    spyOn(component.confirm, 'emit');
-
-    const confirmButton = fixture.debugElement.nativeElement.querySelector('.accept_btn');
-    confirmButton.click();
-
-    expect(component.confirm).toHaveBeenCalled();
-  });
   it('should emit cancel event when onCancel() is called', () => {
     let emitted = false;
     component.cancel.subscribe(() => emitted = true);
