@@ -20,7 +20,7 @@ export class ProductService {
   }
 
   updateProduct(product: IProduct): Observable<IProduct> {
-    return this.http.put<IProduct>(`${this.PRODUCTS_ENDPOINT}/`, product);
+    return this.http.put<IProduct>(`${this.PRODUCTS_ENDPOINT}/`, product, {headers: {'authorId': environment.authorId}});
   }
 
   deleteProduct(id: IProduct['id']): Observable<void> {

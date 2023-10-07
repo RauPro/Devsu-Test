@@ -8,7 +8,7 @@ const routes: Routes = [
     component: ProductListComponent
   },
   {
-    path: "new",
+    path: "form-product",
     component: ProductFormComponent
   }
 ]

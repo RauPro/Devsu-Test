@@ -3,7 +3,7 @@
     <div class="actives_container">
       <app-search-bar (SearchTerm)="handleSearch($event)">
       </app-search-bar>
-      <button class="add_button" [routerLink]="'new'">Agregar</button>
+      <button class="add_button" [routerLink]="'form-product'">Agregar</button>
     </div>
     <div class="table_container">
       <app-product-table [products]="products">

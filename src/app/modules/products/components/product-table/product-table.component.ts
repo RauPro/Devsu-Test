@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { IProduct } from "../../models/product.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-product-table',
@@ -10,8 +11,10 @@ export class ProductTableComponent implements OnChanges {
   @Input() products: IProduct[] = [];
   itemsPerPageOptions = [5, 10, 15];
   itemsPerPage = this.itemsPerPageOptions[0];
+  openedMenuId: string | null = null;
   private _currentPage = 1;
-
+  constructor(private router: Router) {
+  }
   get currentPage(): number {
     return this._currentPage;
   }
@@ -70,4 +73,17 @@ export class ProductTableComponent implements OnChanges {
   isLastPage(): boolean {
     return this.currentPage === this.totalPages;
   }
+  toggleMenu(id: string) {
+    this.openedMenuId = this.openedMenuId === id ? null : id;
+  }
+
+  editItem(product: IProduct) {
+    this.router.navigate(['/form-product'], { state: { data: product } });
+  }
+
+  deleteItem() {
+    // Lógica de eliminación
+    //this.isMenuOpen = false;
+  }
+
 }
