@@ -18,4 +18,14 @@ describe('SearchBarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should emit search term when input keyup event is triggered', () => {
+    jest.spyOn(component.SearchTerm, 'emit');
+
+    const inputElement = fixture.debugElement.nativeElement.querySelector('input');
+    inputElement.value = 'testSearch';
+    inputElement.dispatchEvent(new Event('keyup'));
+
+    expect(component.SearchTerm.emit).toHaveBeenCalledWith('testSearch');
+  });
 });
