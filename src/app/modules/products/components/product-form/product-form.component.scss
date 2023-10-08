@@ -13,7 +13,7 @@ button {
 }
 .product_form{
   width: 60%;
-  background-color: #ffffff;
+  background-color: $white-color;
   height: fit-content;
 }
 .main_container_form{
@@ -39,7 +39,7 @@ button {
   font-size: 1rem;
   line-height: 1.5;
   color: #495057;
-  background-color: #fff;
+  background-color: $white-color;
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
   &:disabled{

@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {IProduct} from "../../models/product.model";
 import {catchError, takeUntil} from "rxjs/operators";
 import {of, Subject} from "rxjs";
+import {futureDateValidator} from "../../validatiors/custom-date.validator";
 
 @Component({
   selector: 'app-product-form',
@@ -17,19 +18,17 @@ export class ProductFormComponent {
   private destroy$ = new Subject<void>();
   showSuccessModal: boolean = false;
   productForm: FormGroup;
+  modalMessage: string = "";
   constructor(private fb: FormBuilder, private productService: ProductService, private router: Router) {
-    const currentDate = new Date();
-    const nextYearDate = new Date(currentDate.setFullYear(currentDate.getFullYear() + 1));
-
     this.productForm = this.fb.group({
-      id: ['', [Validators.required,], [existingIDValidator(productService)]],
-      name: ['', Validators.required],
-      description: ['', Validators.required],
+      id: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(10)], [existingIDValidator(productService)]],
+      name: ['', [Validators.required,Validators.minLength(5), Validators.maxLength(100)] ],
+      description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(200)]],
       logo: ['', Validators.required],
-      date_release: ['', Validators.required],
+      date_release: ['', [Validators.required, futureDateValidator()]],
       date_revision: [
         {
-          value: nextYearDate.toISOString().split('T')[0], // Convierte la fecha a formato "YYYY-MM-DD"
+          value: "",
           disabled: true,
         },
         Validators.required,
@@ -46,6 +45,7 @@ export class ProductFormComponent {
       this.productForm.patchValue(data);
       this.productForm.get('id')?.disable();
     }
+    this.modalMessage = this.isModified ? 'Producto modificado con éxito' : 'Producto creado con éxito';
   }
   ngOnDestroy(): void {
     this.destroy$.next();
@@ -74,9 +74,16 @@ export class ProductFormComponent {
   }
 
   reset() {
-    this.productForm.reset({
-      date_revision: this.productForm.get('date_revision')?.value
-    });
+    if (this.isModified) {
+      this.productForm.reset({
+        id: this.productForm.get('id')?.value,
+        date_revision: this.productForm.get('date_revision')?.value
+      });
+    }else{
+      this.productForm.reset({
+        date_revision: this.productForm.get('date_revision')?.value
+      });
+    }
   }
 
   validControls() {
@@ -91,7 +98,13 @@ export class ProductFormComponent {
   }
 
   handleButton() {
-    this.router.navigate(['/products']);
+    this.router.navigate(['/']);
+  }
+
+  valuesChange() {
+    const currentDate = new Date(this.productForm.get('date_release')?.value);
+    const nextYearDate = new Date(currentDate.setFullYear(currentDate.getFullYear() + 1));
+    this.productForm.get('date_revision')?.patchValue(nextYearDate.toISOString().split('T')[0]);
   }
 }
 

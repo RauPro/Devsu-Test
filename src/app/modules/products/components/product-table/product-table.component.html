@@ -1,12 +1,12 @@
-<table>
+<table class="product_table p-3">
   <thead>
   <tr>
     <th>Logo</th>
     <th>Nombre del producto</th>
-    <th><div>Descripción</div><i class="ri-information-fill"></i></th>
-    <th><div>Fecha de liberación</div> <i class="ri-information-fill"></i></th>
-    <th><div>Fecha de reestructuración</div> <i class="ri-information-fill"></i></th>
-    <th></th> <!-- TODO: Opcional, para el menú contextual -->
+    <th><div class="th_content">Descripción</div><i class="ri-information-fill"></i></th>
+    <th><div class="th_content">Fecha de liberación</div> <i class="ri-information-fill"></i></th>
+    <th><div class="th_content">Fecha de reestructuración</div> <i class="ri-information-fill"></i></th>
+    <th></th>
   </tr>
   </thead>
   <tbody>
@@ -17,7 +17,7 @@
     <td>{{ product.date_release | date:'d/MM/yyyy' }}</td>
     <td>{{ product.date_revision | date:'d/MM/yyyy' }}</td>
     <td>
-      <button (click)="toggleMenu(product.id)">
+      <button class="toggle_btn" (click)="toggleMenu(product.id)">
         <i class="ri-more-2-line"></i>
       </button>
       <div class="menu-dropdown" *ngIf="openedMenuId === product.id">
@@ -47,7 +47,7 @@
 <app-message-modal *ngIf="showDeleteModal"
                    [title]="'Confirmar eliminación'"
                    [message]=deleteMessage
-                   [showCancel]="false"
+                   [showCancel]="true"
                    [showConfirm]="true"
                    (cancel)="handleCancelButton()"
                    (confirm)="handleDeleteButton()">>

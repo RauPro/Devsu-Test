@@ -1,9 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
 import { ProductFormComponent } from './product-form.component';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
 import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
+import {IProduct} from "../../models/product.model";
 
 
 // Mock del router
@@ -19,7 +20,14 @@ const mockProductService = {
 describe('ProductFormComponent', () => {
   let component: ProductFormComponent;
   let fixture: ComponentFixture<ProductFormComponent>;
-
+  const mockProduct: IProduct = {
+    id: 'testId',
+    name: 'testName',
+    description: 'testDescription',
+    logo: 'testLogo',
+    date_release: '2024-01-01',
+    date_revision: '2025-01-01'
+  }
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ReactiveFormsModule],
@@ -56,7 +64,7 @@ describe('ProductFormComponent', () => {
 
   it('should navigate to /products when handleButton is called', () => {
     component.handleButton();
-    expect(mockRouter.navigate).toHaveBeenCalledWith(['/products']);
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['/']);
   });
 
 
@@ -72,8 +80,8 @@ describe('ProductFormComponent', () => {
       name: 'testName',
       description: 'testDescription',
       logo: 'testLogo',
-      date_release: '2022-01-01',
-      date_revision: '2023-01-01'
+      date_release: '2024-01-01',
+      date_revision: '2025-01-01'
     });
 
     component.submit();
@@ -82,31 +90,30 @@ describe('ProductFormComponent', () => {
       name: 'testName',
       description: 'testDescription',
       logo: 'testLogo',
-      date_release: '2022-01-01',
-      date_revision: '2023-01-01'
+      date_release: '2024-01-01',
+      date_revision: '2025-01-01'
     });
   });
 
   it('should navigate to /products when handleButton is called', () => {
     component.handleButton();
-    expect(mockRouter.navigate).toHaveBeenCalledWith(['/products']);
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['/']);
   });
 
   it('should return false if all controls are valid in validControls', () => {
+    component.productForm.patchValue(mockProduct)
     expect(component.validControls()).toBeFalsy();
   });
   it('should handle successful request', () => {
-    const mockProduct = {};  // Usa un objeto de mock que represente un producto válido
+    component.productForm.patchValue(mockProduct)
     component.isModified = false;
-
     mockProductService.createProduct.mockReturnValue(of(mockProduct));
-
     component.submit();
-
     expect(component.showSuccessModal).toBeTruthy();
   });
 
   it('should handle failed request', () => {
+    component.productForm.patchValue(mockProduct)
     const errorResponse = { message: 'Error from server' };
     mockProductService.createProduct.mockReturnValue(throwError(errorResponse));
     component.isModified = false;
@@ -115,18 +122,29 @@ describe('ProductFormComponent', () => {
   });
 
 
-  it('should reset form on successful creation', () => {
-    mockProductService.createProduct.mockReturnValue(of({  }));
-
+  it('should reset form on successful creation', fakeAsync(() => {
+    mockProductService.createProduct.mockReturnValue(of(mockProduct));
+    component.productForm.patchValue(mockProduct)
     const resetSpy = jest.spyOn(component, 'reset');
-
     component['isModified'] = false;
-
     component.submit();
+    tick();
 
     expect(resetSpy).toHaveBeenCalled();
-  });
+  }));
 
+  it('should call reset on modify', () => {
+    const currentId = component.productForm.get('id')?.value
+    component.isModified = true;
+    component.reset();
+    expect(currentId).toBe(component.productForm.get('id')?.value);
+  });
+  it('should call reset on create', () => {
+    const currentId = component.productForm.get('id')?.value
+    component.isModified = false;
+    component.reset();
+    expect(currentId).toBe("testId");
+  });
   it('should not reset form on successful update', () => {
     const mockProduct = {};
     component.isModified = true;
@@ -138,7 +156,19 @@ describe('ProductFormComponent', () => {
 
     expect(resetSpy).not.toHaveBeenCalled();
   });
+  it('should update date_revision when date_release is changed in valuesChange', () => {
+    const currentDate = new Date();
+    const nextYearDate = new Date(currentDate.setFullYear(currentDate.getFullYear() + 1));
+
+    component.productForm.get('date_release')?.patchValue(currentDate.toISOString().split('T')[0]);
+    component.valuesChange();
+    const revisedDate = component.productForm.get('date_revision')?.value;
+
+    expect(new Date(revisedDate).getFullYear()-1).toEqual(nextYearDate.getFullYear());
+  });
   it('should return true if any control is invalid', () => {
+    Object.defineProperty(window, 'history', {});
+    component.isModified = false;
     component.ngOnInit();
 
     component.productForm.get('name')?.setErrors({ 'required': true })
