@@ -65,6 +65,10 @@ Confirmation Modal: Before proceeding with the deletion, a modal is displayed fo
 **Important Note:**
 The deletion function was not adequately tested due to a 404 error on the respective endpoint. Despite validating that it carries the proper header with tools like Postman and Insomnia, it couldn't be made to work correctly.
 
+## 5. Loader
+![Loader](./src/assets/Loader.PNG 'Loader')
+App uses loader that is called each http request
+
 
 ## Testing
 ![Testing](./src/assets/TestCoverage.PNG 'Testing')
