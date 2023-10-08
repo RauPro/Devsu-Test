@@ -34,7 +34,7 @@ Run `ng test` to execute the unit tests via [jest](https://jestjs.io/).
 ## Product Feature
 
 ### 1. Product Display:
-[!Product Display](./src/assets/ListProduct.PNG)
+![Product Display](./src/assets/ListProduct.PNG)
 
    This module presents a detailed listing of products in a table format. This table is equipped with the following features:
 
@@ -43,20 +43,20 @@ Pagination: Facilitates navigation through multiple products.
 Search Bar: Allows users to filter and find specific products.
 Addition Button: A dedicated button to add new products to the listing.
 ### 2. Product Creation:
-[!ProductCreation](./src/assets/CreateProduct.PNG 'Product Creation')
+![ProductCreation](./src/assets/CreateProduct.PNG 'Product Creation')
 
    This section provides an interface for creating a new product:
 
 Validations: All form fields have specific validations to ensure correct data entry.
 Confirmation Modal: Before finalizing the creation, a modal pops up seeking user confirmation.
 ### 3. Product Editing:
-[!ProductEditing](./src/assets/EditProduct.PNG 'Product Editing')
+![ProductEditing](./src/assets/EditProduct.PNG 'Product Editing')
 
    Through the contextual menu, the option to edit a product is provided:
 
 Editing Form: The same form used in creation is used here, but with certain fields, like the ID, disabled to ensure only permitted fields are modified.
 ### 4. Product Deletion:
-[!ProductDeletion](./src/assets/ModalDelete.PNG 'Product Deletion')
+![ProductDeletion](./src/assets/ModalDelete.PNG 'Product Deletion')
 
 
    The deletion option is located in the contextual menu:
@@ -67,6 +67,6 @@ The deletion function was not adequately tested due to a 404 error on the respec
 
 
 ## Testing
-[!Testing](./src/assets/TestCoverage.PNG 'Testing')
+![Testing](./src/assets/TestCoverage.PNG 'Testing')
 
 All files were tested. Application reach 100% code coverage. 100% of the code was tested using Jest. The tests are located in the same folder as the respective component/service. To run the tests, use the command `ng test` in the terminal.
