@@ -8,6 +8,8 @@
         <input class="input-element" id="id" type="text" formControlName="id">
         <div class="error-message" *ngIf="productForm.get('id')?.invalid && productForm.get('id')?.touched">
           <p *ngIf="productForm.get('id')?.hasError('required')">Este campo es requerido!</p>
+          <p *ngIf="productForm.get('id')?.hasError('minlength')">Longitud minima de 3!</p>
+          <p *ngIf="productForm.get('id')?.hasError('maxlength')">Longitud maxima de 10!</p>
           <p *ngIf="productForm.get('id')?.hasError('idExists')">ID no disponible!</p>
         </div>
       </div>
@@ -16,7 +18,9 @@
         <label for="nombre">Nombre</label>
         <input class="input-element" id="nombre" type="text" formControlName="name">
         <div *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched" class="error-message">
-          Este campo es requerido!
+          <p *ngIf="productForm.get('name')?.hasError('required')">Este campo es requerido!</p>
+          <p *ngIf="productForm.get('name')?.hasError('minlength')">Longitud minima de 5!</p>
+          <p *ngIf="productForm.get('name')?.hasError('maxlength')">Longitud maxima de 100!</p>
         </div>
       </div>
     </div>
@@ -26,7 +30,9 @@
         <label for="description">Descripción</label>
         <input class="input-element" id="description" type="text" formControlName="description">
         <div *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched" class="error-message">
-          Este campo es requerido!
+          <p *ngIf="productForm.get('description')?.hasError('required')">Este campo es requerido!</p>
+          <p *ngIf="productForm.get('description')?.hasError('minlength')">Longitud minima de 10!</p>
+          <p *ngIf="productForm.get('description')?.hasError('maxlength')">Longitud maxima de 200!</p>
         </div>
       </div>
 
@@ -42,9 +48,10 @@
     <div class="d-flex justify-space-around flex-wrap">
       <div class="input-group">
         <label for="date_release">Fecha Liberación</label>
-        <input class="input-element" id="date_release" type="date" formControlName="date_release">
+        <input class="input-element" id="date_release" type="date" formControlName="date_release" (change)="valuesChange()">
         <div *ngIf="productForm.get('date_release')?.invalid && productForm.get('date_release')?.touched" class="error-message">
-          Este campo es requerido!
+          <p *ngIf="productForm.get('date_release')?.hasError('required')">Este campo es requerido!</p>
+          <p *ngIf="productForm.get('date_release')?.hasError('pastDate')">La fecha debe ser superior a la actual!</p>
         </div>
       </div>
 

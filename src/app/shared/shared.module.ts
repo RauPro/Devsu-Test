@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import {LayoutComponent} from "./components/layout/layout.component";
 import {MessageModalComponent} from "./components/message-modal/message-modal.component";
 import {RouterModule} from "@angular/router";
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
-  declarations: [LayoutComponent, MessageModalComponent],
+  declarations: [LayoutComponent, MessageModalComponent, LoaderComponent],
   imports: [CommonModule, RouterModule],
-  exports: [MessageModalComponent, LayoutComponent]
+  exports: [MessageModalComponent, LayoutComponent, LoaderComponent]
 })
 export class SharedModule {}
