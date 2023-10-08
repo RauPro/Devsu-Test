@@ -23,6 +23,7 @@
 }
 .table_container{
   width: 100%;
+  background-color: $white-color;
 }
 .add_button {
   @include button();

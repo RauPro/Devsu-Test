@@ -56,7 +56,7 @@ describe('ProductFormComponent', () => {
 
   it('should navigate to /products when handleButton is called', () => {
     component.handleButton();
-    expect(mockRouter.navigate).toHaveBeenCalledWith(['/products']);
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['/']);
   });
 
 
@@ -89,7 +89,7 @@ describe('ProductFormComponent', () => {
 
   it('should navigate to /products when handleButton is called', () => {
     component.handleButton();
-    expect(mockRouter.navigate).toHaveBeenCalledWith(['/products']);
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['/']);
   });
 
   it('should return false if all controls are valid in validControls', () => {

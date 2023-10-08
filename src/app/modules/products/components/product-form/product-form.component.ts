@@ -17,6 +17,7 @@ export class ProductFormComponent {
   private destroy$ = new Subject<void>();
   showSuccessModal: boolean = false;
   productForm: FormGroup;
+  modalMessage: string = "";
   constructor(private fb: FormBuilder, private productService: ProductService, private router: Router) {
     const currentDate = new Date();
     const nextYearDate = new Date(currentDate.setFullYear(currentDate.getFullYear() + 1));
@@ -46,6 +47,7 @@ export class ProductFormComponent {
       this.productForm.patchValue(data);
       this.productForm.get('id')?.disable();
     }
+    this.modalMessage = this.isModified ? 'Producto modificado con éxito' : 'Producto creado con éxito';
   }
   ngOnDestroy(): void {
     this.destroy$.next();
@@ -74,9 +76,16 @@ export class ProductFormComponent {
   }
 
   reset() {
-    this.productForm.reset({
-      date_revision: this.productForm.get('date_revision')?.value
-    });
+    if (this.isModified) {
+      this.productForm.reset({
+        id: this.productForm.get('id')?.value,
+        date_revision: this.productForm.get('date_revision')?.value
+      });
+    }else{
+      this.productForm.reset({
+        date_revision: this.productForm.get('date_revision')?.value
+      });
+    }
   }
 
   validControls() {
@@ -91,7 +100,7 @@ export class ProductFormComponent {
   }
 
   handleButton() {
-    this.router.navigate(['/products']);
+    this.router.navigate(['/']);
   }
 }
 

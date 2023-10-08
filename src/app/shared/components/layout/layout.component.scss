@@ -4,5 +4,8 @@
   height: 13vh;
   .logo{
     width: 20rem;
+    &:hover{
+      cursor: pointer;
+    }
   }
 }
