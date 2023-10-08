@@ -102,7 +102,7 @@ export class ProductTableComponent implements OnChanges {
         this.products = this.products.filter(product => product.id !== this.currentSelectedProduct?.id);
         this.updatePagination();
         this.showDeleteModal = false;
-      })
+      }, );
     }
   }
 }

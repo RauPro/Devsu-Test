@@ -100,3 +100,8 @@ i {
 .product_table{
   background-color: $white-color;
 }
+.pagination-controls{
+  @include respond-to(tablet-portrait) {
+    width: 600px;
+  }
+}

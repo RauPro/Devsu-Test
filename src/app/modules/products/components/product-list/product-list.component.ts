@@ -26,12 +26,12 @@ export class ProductListComponent implements OnInit, OnDestroy {
       });
 
     this.searchSubject.pipe(
-      debounceTime(2000), // Wait 2 seconds after the last event before emitting last event
+      debounceTime(1000), // Wait 1 seconds after the last event before emitting last event
       distinctUntilChanged(), // Only emit if value is different from previous value
       takeUntil(this.destroy$)
     ).subscribe(term => {
       if (term.trim() !== "") {
-        this.products = this.originalProducts.filter(product => product.name.includes(term));
+        this.products = this.originalProducts.filter(product => product.name.toLowerCase().includes(term.toLowerCase()));
       } else {
         this.products = [...this.originalProducts];
       }

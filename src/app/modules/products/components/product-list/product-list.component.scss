@@ -24,6 +24,10 @@
 .table_container{
   width: 100%;
   background-color: $white-color;
+  @include respond-to(tablet-portrait) {
+    display: block;
+    overflow-x: auto;
+  }
 }
 .add_button {
   @include button();
