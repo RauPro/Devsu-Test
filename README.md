@@ -34,7 +34,7 @@ Run `ng test` to execute the unit tests via [jest](https://jestjs.io/).
 ## Product Feature
 
 ### 1. Product Display:
-[!ProductDisplay](./src/assets/ListProduct.PNG 'Product Display')
+[!Product Display](./src/assets/ListProduct.PNG)
 
    This module presents a detailed listing of products in a table format. This table is equipped with the following features:
 
